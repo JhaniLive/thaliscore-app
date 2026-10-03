@@ -39,7 +39,7 @@
   <p>When you scan a nutrition label or a plate of food, the photo is sent to the NutriScan server, which passes it to an AI model to read the label or recognise the dish:</p>
   <ul>
     <li>The server runs on Cloudflare Workers and does not store your photos.</li>
-    <li>The photo is processed by an AI model (Anthropic’s Claude) through OpenRouter. Their privacy policies apply to that processing.</li>
+    <li>The photo is processed by an AI model through OpenRouter. NutriScan currently uses free open models (such as Alibaba’s Qwen and Google’s Gemma); the providers of free models may keep requests to improve their services. OpenRouter’s and the provider’s privacy policies apply to that processing.</li>
     <li>Only the photo and the resulting nutrient values are sent. Nothing that identifies you is attached.</li>
   </ul>
 
