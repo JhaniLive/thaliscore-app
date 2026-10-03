@@ -3,57 +3,69 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>NutriScan privacy policy</title>
+<title>ThaliScore privacy policy</title>
 <link rel="icon" href="icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Mukta:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&family=Plus+Jakarta+Sans:wght@400;700&display=swap" rel="stylesheet">
 <style>
-  :root { --steel: #E9ECEF; --surface: #FFFFFF; --ink: #1C2140; --muted: #5E6680; --indigo: #27306B; }
-  body { margin: 0; background: var(--steel); color: var(--ink); font: 18px/1.65 Mukta, system-ui, sans-serif; }
+  :root { --cream: #FFF8EE; --ink: #2A1A10; --muted: #7A6352; --chilli: #E8452C; --haldi: #F4B400; }
+  body { margin: 0; background: var(--cream); color: var(--ink); font: 17px/1.65 "Plus Jakarta Sans", system-ui, sans-serif; }
   main { max-width: 720px; margin: 0 auto; padding: 40px 20px 64px; }
-  h1, h2 { font-family: "Baloo 2", system-ui, sans-serif; line-height: 1.15; }
-  h1 { font-size: 40px; margin: 24px 0 4px; }
+  h1, h2 { font-family: "Bricolage Grotesque", system-ui, sans-serif; line-height: 1.1; letter-spacing: -.5px; }
+  h1 { font-size: 44px; margin: 24px 0 4px; }
   h2 { font-size: 24px; margin: 32px 0 6px; }
   .updated { color: var(--muted); margin: 0 0 24px; }
-  a { color: var(--indigo); }
-  .back { font-weight: 700; text-decoration: none; }
+  a { color: var(--ink); }
+  .back { font-weight: 700; text-decoration: none; background: var(--haldi); padding: 6px 14px; border-radius: 999px; }
   ul { padding-left: 22px; }
 </style>
 </head>
 <body>
 <main>
-  <a class="back" href="./">‹ NutriScan</a>
+  <a class="back" href="./">‹ ThaliScore</a>
   <h1>Privacy policy</h1>
-  <p class="updated">Last updated 3 October 2026</p>
+  <p class="updated">Last updated 4 October 2026</p>
 
-  <p>NutriScan grades food from A to E. It has no accounts, no ads and no analytics or tracking. This page explains exactly what leaves your phone and why.</p>
+  <p>ThaliScore (formerly NutriScan) grades food from A to E. It has no accounts, no ads and no analytics or tracking. This page explains exactly what leaves your phone and why.</p>
 
   <h2>What stays on your phone</h2>
-  <p>Your scan history, including small thumbnails of photos you scanned, is stored only on your device. Clearing history in the app, or uninstalling it, deletes it.</p>
+  <ul>
+    <li>Your scan history, including small thumbnails of photos you scanned.</li>
+    <li>Barcodes you taught the app by scanning their label.</li>
+    <li>Your optional <b>My body</b> details (height, weight, age, sex, health conditions, goal) and your Child mode and appearance settings.</li>
+  </ul>
+  <p>Deleting your details in the app, clearing history, or uninstalling the app removes them.</p>
 
   <h2>Barcode scans</h2>
-  <p>When you scan a barcode, the barcode number is sent to <a href="https://world.openfoodfacts.org">Open Food Facts</a>, an open food database, to look up the product. No photo is sent. Open Food Facts’ own privacy policy applies to that request.</p>
+  <p>When you scan a barcode, only the barcode number is sent to Open Food Facts, an open food database, to look up the product. Open Food Facts’ own privacy policy applies to that request.</p>
 
-  <h2>Label and food photos</h2>
-  <p>When you scan a nutrition label or a plate of food, the photo is sent to the NutriScan server, which passes it to an AI model to read the label or recognise the dish:</p>
+  <h2>Label and food photos, and the opinion</h2>
+  <p>When you scan a nutrition label or a plate of food, the photo (and, for food, any description you type) is sent to the ThaliScore server, which passes it to an AI model to read the label or recognise the dish. To write the advice on each result, the server also sends the food’s name, grade, nutrients and ingredient flags.</p>
   <ul>
-    <li>The server runs on Cloudflare Workers and does not store your photos.</li>
-    <li>The photo is processed by an AI model through OpenRouter. NutriScan currently uses free open models (such as Alibaba’s Qwen and Google’s Gemma); the providers of free models may keep requests to improve their services. OpenRouter’s and the provider’s privacy policies apply to that processing.</li>
-    <li>Only the photo and the resulting nutrient values are sent. Nothing that identifies you is attached.</li>
+    <li>The server runs on Cloudflare Workers and does not store your photos or requests.</li>
+    <li>The AI model is Anthropic’s Claude, reached through OpenRouter. Their privacy policies apply to that processing.</li>
+    <li>If <b>My body</b> is switched on, the advice request also includes your age, sex, BMI, ticked health conditions and goal, so the advice can be written for you. Your height and weight themselves are not sent, only the BMI worked out from them. Nothing that identifies you, such as your name, phone number or location, is ever sent.</li>
+    <li>When My body is off, or empty, no personal details are sent at all.</li>
   </ul>
+
+  <h2>Sharing</h2>
+  <p>Shared images and PDF reports are made on your phone and go only where you send them. They never include your personal “For you” note.</p>
+
+  <h2>Support payments</h2>
+  <p>“Buy me an avocado” opens your own UPI app. ThaliScore never sees or handles your payment details.</p>
 
   <h2>Permissions</h2>
   <ul>
-    <li><b>Camera</b>: to scan barcodes, labels and food.</li>
-    <li><b>Photos</b>: only when you choose to pick an image from your gallery.</li>
+    <li><b>Camera:</b> to scan barcodes, labels and food.</li>
+    <li><b>Photos:</b> only when you choose to pick an image from your gallery.</li>
   </ul>
 
   <h2>Children</h2>
-  <p>NutriScan doesn’t knowingly collect any personal information from anyone, including children.</p>
+  <p>Child mode gives food guidance for children; it doesn’t ask for or store any information about your child beyond the age band you pick, which stays on your phone. ThaliScore doesn’t knowingly collect personal information from anyone, including children.</p>
 
   <h2>Not medical advice</h2>
-  <p>Grades are general guidance based on the Nutri-Score method. Grades for food photos are estimates. For dietary or medical needs, talk to a doctor or dietitian.</p>
+  <p>Grades and advice are general guidance based on the Nutri-Score method and published guidelines from WHO, ICMR-NIN and FSSAI. Scores for food photos are estimates. For dietary or medical needs, talk to a doctor or dietitian.</p>
 
   <h2>Contact</h2>
   <p>Questions about this policy: <a href="mailto:reply2jhani@gmail.com">reply2jhani@gmail.com</a></p>

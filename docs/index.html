@@ -3,150 +3,200 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>NutriScan: grade your food from A to E</title>
-<meta name="description" content="Scan a barcode, a nutrition label or your plate. NutriScan grades Indian packaged food and dishes from A to E and tells you how often to eat them.">
-<meta property="og:title" content="NutriScan: grade your food from A to E">
-<meta property="og:description" content="Scan a barcode, a nutrition label or your plate and get a clear A to E grade.">
-<meta property="og:image" content="https://jhanilive.github.io/nutriscan-app/share-card.png">
+<title>ThaliScore: know your khaana</title>
+<meta name="description" content="Scan a packet, its nutrition label or your plate. ThaliScore grades Indian food from A to E, flags palm oil and added sugar, and tells you who it suits, including kids.">
+<meta property="og:title" content="ThaliScore: know your khaana">
+<meta property="og:description" content="Scan a packet, label or plate and get an A to E score, made for Indian food.">
+<meta property="og:image" content="https://jhanilive.github.io/thaliscore-app/share-card.png">
+<meta name="theme-color" content="#F4B400">
 <link rel="icon" href="icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Mukta:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --steel: #E9ECEF; --surface: #FFFFFF; --rim: #D3D8DE; --ink: #1C2140; --muted: #5E6680;
-    --indigo: #27306B; --haldi: #F2B705;
-    --a: #1E8F4E; --b: #78B13A; --c: #F2B705; --d: #EC7A1C; --e: #D9411E;
+    --cream: #FFF8EE; --surface: #FFFFFF; --besan: #FBEFDD; --line: #F0E2CF; --rim: #EADBC6;
+    --ink: #2A1A10; --muted: #7A6352; --faint: #A8927F;
+    --haldi: #F4B400; --chilli: #E8452C; --mint: #1F9D63; --mintBg: #E3F5EA; --saffron: #C76A00; --saffronBg: #FFF0D6; --badBg: #FDE6DF;
+    --a: #038141; --b: #85BB2F; --c: #FECB02; --d: #EE8100; --e: #E63E11;
   }
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
-  body { margin: 0; background: var(--steel); color: var(--ink); font: 18px/1.6 Mukta, system-ui, sans-serif; }
-  h1, h2, h3, .btn, .plate b { font-family: "Baloo 2", system-ui, sans-serif; }
-  a { color: var(--indigo); }
-  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 20px; }
+  body { margin: 0; background: var(--cream); color: var(--ink); font: 17px/1.6 "Plus Jakarta Sans", system-ui, sans-serif; }
+  h1, h2, h3, .btn, .brand, .num { font-family: "Bricolage Grotesque", system-ui, sans-serif; }
+  a { color: var(--ink); }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+  img { max-width: 100%; }
 
-  /* Hero: words on the left, the app on the right */
-  .hero { padding: 48px 0 24px; }
-  .hero .wrap { display: grid; grid-template-columns: 1.1fr .9fr; gap: 40px; align-items: center; }
-  .brand { display: flex; align-items: center; gap: 12px; font: 800 24px "Baloo 2", sans-serif; color: var(--indigo); }
-  .brand img { width: 44px; height: 44px; border-radius: 12px; }
-  h1 { font-size: clamp(44px, 7vw, 72px); line-height: 1; margin: 28px 0 16px; font-weight: 800; letter-spacing: -.5px; }
-  .lede { font-size: 20px; color: var(--muted); max-width: 30em; margin: 0 0 28px; }
-  .btn { display: inline-flex; align-items: center; gap: 10px; background: var(--indigo); color: #fff; text-decoration: none;
-         font-size: 20px; font-weight: 700; padding: 14px 28px; border-radius: 18px; }
-  .btn:hover { background: #1E2558; }
-  .btn:focus-visible, .arrow:focus-visible, .dots button:focus-visible { outline: 3px solid var(--haldi); outline-offset: 3px; }
-  .btn svg { width: 22px; height: 22px; }
-  .meta { color: var(--muted); font-size: 15px; margin-top: 12px; }
-  .phone { justify-self: center; width: min(320px, 80vw); border-radius: 40px; background: var(--ink); padding: 10px;
-           box-shadow: 0 30px 60px -20px rgba(28,33,64,.45); }
-  .phone img { display: block; width: 100%; border-radius: 31px; }
+  /* Hero: turmeric block like the app's home */
+  .hero { background: var(--haldi); border-radius: 0 0 48px 48px; padding: 24px 0 64px; }
+  .nav { display: flex; align-items: center; justify-content: space-between; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 24px; text-decoration: none; letter-spacing: -.5px; }
+  .brand img { width: 42px; height: 42px; border-radius: 12px; }
+  .nav a.small { font-weight: 700; font-size: 15px; text-decoration: none; background: rgba(255,255,255,.7); padding: 8px 16px; border-radius: 999px; }
+  .hero-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 40px; align-items: center; margin-top: 36px; }
+  .eyebrow { display: inline-block; background: var(--ink); color: var(--cream); font-weight: 700; font-size: 14px; padding: 6px 14px; border-radius: 999px; }
+  h1 { font-size: clamp(52px, 8vw, 92px); line-height: .95; margin: 18px 0 18px; font-weight: 800; letter-spacing: -2px; }
+  h1 em { font-style: normal; background: var(--surface); padding: 0 .12em; border-radius: 14px; }
+  .lede { font-size: 19px; max-width: 30em; margin: 0 0 28px; color: rgba(42,26,16,.85); }
+  .btn { display: inline-flex; align-items: center; gap: 12px; background: var(--chilli); color: #fff; text-decoration: none; font-size: 21px; font-weight: 800;
+         padding: 10px 26px 10px 10px; border-radius: 999px; box-shadow: 0 14px 30px -10px rgba(232,69,44,.7); transition: transform .15s; }
+  .btn:hover { transform: translateY(-2px); }
+  .btn:focus-visible, button:focus-visible, a:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+  .btn .ico { width: 46px; height: 46px; border-radius: 50%; background: #fff; display: grid; place-items: center; }
+  .btn svg { width: 22px; height: 22px; color: var(--chilli); }
+  .meta { font-size: 14px; margin-top: 14px; color: rgba(42,26,16,.75); }
+  .phone { justify-self: center; width: min(320px, 78vw); border-radius: 44px; background: var(--ink); padding: 10px; box-shadow: 0 40px 60px -24px rgba(122,74,0,.55); transform: rotate(2deg); }
+  .phone img { display: block; width: 100%; border-radius: 35px; }
 
-  /* The grade scale, served as five small thalis */
-  .scale { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin: 8px 0 0; padding: 0; list-style: none; }
-  .plate { text-align: center; }
-  .plate span { display: grid; place-items: center; width: 84px; height: 84px; margin: 0 auto 8px; border-radius: 50%;
-                background: var(--surface); box-shadow: 0 0 0 8px var(--rim); }
-  .plate b { font-size: 44px; line-height: 1; padding-top: 6px; }
-  .plate p { margin: 0; font-size: 16px; color: var(--muted); }
+  section { padding: 64px 0 0; }
+  h2 { font-size: clamp(32px, 4.5vw, 44px); line-height: 1.05; margin: 0 0 10px; font-weight: 800; letter-spacing: -1px; }
+  .sub { color: var(--muted); margin: 0 0 26px; max-width: 40em; }
 
-  section { padding: 48px 0 8px; }
-  h2 { font-size: 34px; line-height: 1.15; margin: 0 0 18px; font-weight: 800; }
-  .ways { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-  .way { background: var(--surface); border-radius: 24px; padding: 22px; }
-  .way h3 { margin: 10px 0 4px; font-size: 22px; line-height: 1.2; }
-  .way p { margin: 0; color: var(--muted); }
-  .way svg { width: 30px; height: 30px; color: var(--indigo); }
+  /* A–E scale */
+  .scale { display: grid; grid-template-columns: repeat(5, 1fr); border-radius: 22px; overflow: hidden; }
+  .scale div { padding: 18px 10px; text-align: center; color: #fff; }
+  .scale b { display: block; font: 800 40px/1 "Bricolage Grotesque", sans-serif; }
+  .scale span { font-size: 14px; font-weight: 700; }
 
-  /* Screenshots: one swipeable row with arrows and dots */
+  /* Scan by: round photos like the app */
+  .ways { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .way { background: var(--surface); border: 1px solid var(--line); border-radius: 28px; padding: 22px; text-align: center; }
+  .way img { width: 120px; height: 120px; object-fit: cover; border-radius: 50%; border: 4px solid var(--chilli); padding: 4px; background: #fff; }
+  .way h3 { margin: 12px 0 4px; font-size: 24px; }
+  .way p { margin: 0; color: var(--muted); font-size: 15px; }
+
+  /* Features */
+  .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .feature { background: var(--surface); border: 1px solid var(--line); border-radius: 24px; padding: 22px; }
+  .feature .emoji { font-size: 30px; line-height: 1; }
+  .feature h3 { margin: 10px 0 4px; font-size: 21px; line-height: 1.2; }
+  .feature p { margin: 0; color: var(--muted); font-size: 15px; }
+  .feature.kids { background: var(--saffronBg); border-color: var(--haldi); }
+
+  /* Screenshots */
   .carousel { position: relative; }
-  .shots { display: flex; gap: 18px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; padding: 4px 2px 10px; scrollbar-width: none; }
+  .shots { display: flex; gap: 18px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; padding: 6px 2px 14px; scrollbar-width: none; }
   .shots::-webkit-scrollbar { display: none; }
-  .shots figure { flex: 0 0 auto; width: calc((100% - 54px) / 4); margin: 0; scroll-snap-align: start; }
-  .shots img { width: 100%; border-radius: 22px; display: block; box-shadow: 0 12px 30px -16px rgba(28,33,64,.5); }
-  .shots figcaption { font-size: 15px; color: var(--muted); margin-top: 8px; text-align: center; }
-  .arrow { position: absolute; top: 42%; transform: translateY(-50%); width: 46px; height: 46px; border-radius: 50%; border: 0;
-           background: var(--indigo); color: #fff; font-size: 24px; cursor: pointer; display: grid; place-items: center; }
+  .shots figure { flex: 0 0 auto; width: calc((100% - 72px) / 5); margin: 0; scroll-snap-align: start; }
+  .shots img { width: 100%; border-radius: 26px; display: block; border: 6px solid var(--ink); }
+  .shots figcaption { font-size: 14px; color: var(--muted); margin-top: 8px; text-align: center; font-weight: 500; }
+  .arrow { position: absolute; top: 42%; transform: translateY(-50%); width: 48px; height: 48px; border-radius: 50%; border: 0;
+           background: var(--ink); color: var(--cream); font-size: 26px; cursor: pointer; display: grid; place-items: center; }
   .arrow:disabled { opacity: 0; pointer-events: none; }
   .arrow.prev { left: -18px; } .arrow.next { right: -18px; }
-  .dots { display: flex; justify-content: center; gap: 8px; margin-top: 12px; }
+  .dots { display: flex; justify-content: center; gap: 8px; margin-top: 10px; }
   .dots button { width: 8px; height: 8px; padding: 0; border: 0; border-radius: 4px; background: var(--rim); cursor: pointer; transition: width .2s; }
-  .dots button.on { width: 24px; background: var(--indigo); }
+  .dots button.on { width: 26px; background: var(--chilli); }
 
-  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; }
-  .card { background: var(--surface); border-radius: 24px; padding: 22px 26px; }
+  /* Why it matters */
+  .why { display: grid; grid-template-columns: 1.1fr .9fr; gap: 18px; align-items: stretch; }
+  .why-photo { position: relative; border-radius: 28px; overflow: hidden; min-height: 280px; background: url(img/samosa.jpg) center/cover; }
+  .why-photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(transparent 30%, rgba(26,18,13,.88)); }
+  .why-photo p { position: absolute; left: 24px; right: 24px; bottom: 20px; margin: 0; z-index: 1; color: #fff; font: 800 30px/1.1 "Bricolage Grotesque", sans-serif; }
+  .stats { display: grid; gap: 12px; }
+  .stat { background: var(--surface); border: 1px solid var(--line); border-radius: 22px; padding: 16px 20px; display: flex; align-items: baseline; gap: 14px; }
+  .stat .num { font-size: 40px; font-weight: 800; color: var(--chilli); min-width: 3.2em; }
+  .src { font-size: 13px; color: var(--faint); margin-top: 10px; }
+
+  /* What we follow */
+  .follow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .follow div { background: var(--surface); border: 1px solid var(--line); border-radius: 22px; padding: 18px; }
+  .follow b { display: inline-block; font: 800 18px "Bricolage Grotesque", sans-serif; background: var(--haldi); padding: 2px 10px; border-radius: 8px; margin-bottom: 8px; }
+  .follow p { margin: 0; color: var(--muted); font-size: 14.5px; }
+
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 26px; padding: 24px 26px; }
+  .card h3 { margin: 0 0 8px; font-size: 24px; }
   ol { padding-left: 22px; margin: 0; } li { margin: 8px 0; }
-  .share img { width: 100%; max-width: 360px; border-radius: 20px; display: block; box-shadow: 0 16px 40px -18px rgba(28,33,64,.5); }
-  .note { border-left: 4px solid var(--haldi); background: var(--surface); border-radius: 10px; padding: 14px 18px; color: var(--muted); margin-top: 18px; }
-  footer { text-align: center; color: var(--muted); font-size: 15px; padding: 56px 20px 40px; }
-  footer strong { color: var(--ink); } .heart { color: var(--e); }
+  .note { border-left: 5px solid var(--haldi); background: var(--surface); border-radius: 12px; padding: 14px 18px; color: var(--muted); margin-top: 16px; font-size: 15px; }
 
-  @media (max-width: 860px) {
-    .hero .wrap, .split { grid-template-columns: 1fr; }
-    .phone { order: -1; width: min(260px, 70vw); }
-    .hero { text-align: center; } .brand { justify-content: center; } .lede { margin-left: auto; margin-right: auto; }
-    .ways { grid-template-columns: 1fr; }
-    .shots figure { width: 70%; scroll-snap-align: center; }
+  /* Support */
+  .support { background: var(--ink); color: var(--cream); border-radius: 36px; padding: 36px; display: grid; grid-template-columns: auto 1fr auto; gap: 24px; align-items: center; margin-top: 64px; }
+  .support .avo { font-size: 72px; line-height: 1; }
+  .support h2 { color: var(--cream); font-size: 34px; margin: 0 0 6px; }
+  .support p { margin: 0; color: rgba(255,248,238,.75); }
+  .upi { display: flex; align-items: center; gap: 10px; background: var(--mint); color: #fff; border: 0; border-radius: 999px; padding: 14px 22px; font: 700 17px "Plus Jakarta Sans", sans-serif; cursor: pointer; text-decoration: none; white-space: nowrap; }
+  .upi small { opacity: .85; font-weight: 500; }
+
+  footer { text-align: center; color: var(--muted); font-size: 15px; padding: 48px 20px 40px; }
+  footer strong { color: var(--chilli); font-family: "Bricolage Grotesque", sans-serif; font-size: 18px; } .heart { color: var(--chilli); }
+
+  @media (max-width: 900px) {
+    .hero-grid, .split, .why { grid-template-columns: 1fr; }
+    .hero { text-align: center; } .lede { margin-left: auto; margin-right: auto; }
+    .phone { width: min(260px, 70vw); margin-top: 8px; }
+    .ways, .features { grid-template-columns: 1fr; }
+    .follow { grid-template-columns: 1fr 1fr; }
+    .shots figure { width: 62%; scroll-snap-align: center; }
     .arrow { display: none; }
+    .support { grid-template-columns: 1fr; text-align: center; justify-items: center; }
   }
   @media (max-width: 520px) {
-    .scale { gap: 6px; }
-    .plate span { width: 52px; height: 52px; box-shadow: 0 0 0 5px var(--rim); }
-    .plate b { font-size: 28px; }
-    .plate p { font-size: 13px; line-height: 1.3; }
+    .scale b { font-size: 28px; } .scale span { font-size: 11px; } .scale div { padding: 14px 4px; }
+    .follow { grid-template-columns: 1fr; }
+    .btn { font-size: 19px; }
   }
-  @media (prefers-reduced-motion: reduce) { html, .shots { scroll-behavior: auto; } .dots button { transition: none; } }
+  @media (prefers-reduced-motion: reduce) { html, .shots { scroll-behavior: auto; } .btn, .dots button { transition: none; } .phone { transform: none; } }
 </style>
 </head>
 <body>
 
 <header class="hero">
   <div class="wrap">
-    <div>
-      <div class="brand"><img src="icon.png" alt="">NutriScan</div>
-      <h1>Know what<br>you eat.</h1>
-      <p class="lede">Point your camera at a packet, its nutrition label or your plate. NutriScan grades it from A to E and tells you how often it’s fine to eat.</p>
-      <a class="btn" href="https://github.com/JhaniLive/nutriscan-app/releases/latest/download/NutriScan.apk">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0-5-5m5 5 5-5M5 21h14"/></svg>
-        Download for Android
-      </a>
-      <p class="meta">Free, no ads, no account. Android 8 or newer. Version 1.0.0. <a href="https://github.com/JhaniLive/nutriscan-app/releases">All releases</a></p>
+    <nav class="nav">
+      <a class="brand" href="./"><img src="icon.png" alt="">ThaliScore</a>
+      <a class="small" href="#download">How to install</a>
+    </nav>
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow">Made for Indian food</span>
+        <h1>Know your <em>khaana.</em></h1>
+        <p class="lede">Scan a packet, its nutrition label or your plate. ThaliScore gives it an A to E score, spots palm oil and added sugar, and tells you straight who it suits, including your kids.</p>
+        <a class="btn" href="https://github.com/JhaniLive/thaliscore-app/releases/latest/download/ThaliScore.apk">
+          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0-5-5m5 5 5-5M5 21h14"/></svg></span>
+          Download for Android
+        </a>
+        <p class="meta">Free · no ads · no account · version 1.1.0 · 37 MB · Android 7+ (64-bit) · <a href="https://github.com/JhaniLive/thaliscore-app/releases">all releases</a></p>
+      </div>
+      <div class="phone"><img src="shot-home.jpg" alt="ThaliScore home screen: 'What’s on your plate today?', a Know your khaana card, scan stats, and Packet, Label, Plate and Kids shortcuts"></div>
     </div>
-    <div class="phone"><img src="shot-grade-a.png" alt="NutriScan result for Quaker Oats: grade A, everyday food, with energy, sugar, saturated fat, salt, protein and fibre around the plate"></div>
   </div>
 </header>
 
 <main class="wrap">
   <section aria-labelledby="grades">
-    <h2 id="grades">One letter, served on a plate</h2>
-    <ul class="scale">
-      <li class="plate"><span><b style="color:var(--a)">A</b></span><p>Everyday food</p></li>
-      <li class="plate"><span><b style="color:var(--b)">B</b></span><p>Good most days</p></li>
-      <li class="plate"><span><b style="color:var(--c)">C</b></span><p>Fine in moderation</p></li>
-      <li class="plate"><span><b style="color:var(--d)">D</b></span><p>Now and then</p></li>
-      <li class="plate"><span><b style="color:var(--e)">E</b></span><p>Rarely</p></li>
-    </ul>
-    <p class="note">Grades follow the Nutri-Score method: sugar, saturated fat, salt and calories count against a food; fibre, protein, fruit and vegetables count for it. Around the plate, six bowls show each nutrient in green, amber or red.</p>
+    <h2 id="grades">One letter. No confusion.</h2>
+    <p class="sub">Grades follow the Nutri-Score method and are worked out in the app from the numbers, never guessed by AI. Sugar, salt, saturated fat and calories pull a food down; fibre, protein, fruit, veg and pulses pull it up.</p>
+    <div class="scale">
+      <div style="background:var(--a)"><b>A</b><span>Everyday food</span></div>
+      <div style="background:var(--b)"><b>B</b><span>Good most days</span></div>
+      <div style="background:var(--c);color:var(--ink)"><b>C</b><span>Fine in moderation</span></div>
+      <div style="background:var(--d)"><b>D</b><span>Now and then</span></div>
+      <div style="background:var(--e)"><b>E</b><span>Rarely</span></div>
+    </div>
   </section>
 
   <section aria-labelledby="ways">
-    <h2 id="ways">Three ways to scan</h2>
+    <h2 id="ways">Scan by</h2>
+    <p class="sub">Three ways in, one tap each.</p>
     <div class="ways">
-      <div class="way">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2M7 8v8M10 8v8M13 8v8M17 8v8"/></svg>
-        <h3>Barcode</h3>
-        <p>Packaged food in a second, from the free Open Food Facts database.</p>
-      </div>
-      <div class="way">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg>
-        <h3>Nutrition label</h3>
-        <p>No barcode, or the product isn’t listed? Snap the table on the pack and AI reads it.</p>
-      </div>
-      <div class="way">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/></svg>
-        <h3>Your plate</h3>
-        <p>Vada pav, dosa, biryani or dal makhani: photograph it for an estimated grade.</p>
-      </div>
+      <div class="way"><img src="img/packet.jpg" alt=""><h3>Packet</h3><p>Point at the barcode. Not in the database yet? Snap the label once and ThaliScore remembers it.</p></div>
+      <div class="way"><img src="img/spices.jpg" alt=""><h3>Label</h3><p>Photograph the nutrition table. AI reads the per-100 g column, total and added sugar.</p></div>
+      <div class="way"><img src="img/plate.jpg" alt=""><h3>Plate</h3><p>Rajma chawal, dosa, vada pav. Got it wrong? Tell it what it is and it checks again.</p></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="features">
+    <h2 id="features">More than a grade</h2>
+    <p class="sub">Every result answers the questions you actually have.</p>
+    <div class="features">
+      <div class="feature kids"><div class="emoji">🧒</div><h3>Child mode</h3><p>A clear OK / Sometimes / Avoid for under-2s and 2–12s, with sugar per serving against a child’s daily limit.</p></div>
+      <div class="feature"><div class="emoji">🌴</div><h3>What’s inside</h3><p>Flags palm oil, hydrogenated fat, maida, added sugar, sweeteners, MSG and colours, with why each matters.</p></div>
+      <div class="feature"><div class="emoji">✅</div><h3>Good for, limit if</h3><p>Who it suits and who should go easy, tied to the real numbers: “High BP: 2.9 g salt per 100 g”.</p></div>
+      <div class="feature"><div class="emoji">📅</div><h3>If you eat this often</h3><p>What a C, D or E food tends to do over months and years. Calm, factual, no scare tactics.</p></div>
+      <div class="feature"><div class="emoji">🧍</div><h3>My body</h3><p>Optional BMI (Asian cut-offs), age, goals and conditions like diabetes. Advice becomes personal. Saved only on your phone.</p></div>
+      <div class="feature"><div class="emoji">📄</div><h3>Share a report</h3><p>Send a full-report image to WhatsApp or a printable A4 PDF. Light and dark mode too.</p></div>
     </div>
   </section>
 
@@ -154,10 +204,11 @@
     <h2 id="shots-title">A look inside</h2>
     <div class="carousel">
       <div class="shots" id="shots">
-        <figure><img src="shot-welcome.png" alt="Welcome screen with the five grades and the three ways to scan"><figcaption>Start in seconds</figcaption></figure>
-        <figure><img src="shot-grade-a.png" alt="Quaker Oats graded A"><figcaption>Quaker Oats: A</figcaption></figure>
-        <figure><img src="shot-grade-e-dark.png" alt="Parle-G Gold graded E, in dark mode"><figcaption>Parle-G Gold: E, in dark mode</figcaption></figure>
-        <figure><img src="shot-history.png" alt="Scan history grouped by day with a grade summary"><figcaption>Every scan, saved on your phone</figcaption></figure>
+        <figure><img src="shot-home.jpg" alt="Home screen with the Scan by shortcuts and a raised camera button"><figcaption>Home</figcaption></figure>
+        <figure><img src="shot-result.jpg" alt="Currywurst with fries graded D, with energy, sugar, saturated fat, salt, protein and fibre around a thali"><figcaption>The thali result</figcaption></figure>
+        <figure><img src="shot-longterm.jpg" alt="If you eat this often, and nutrition per 100 g with added sugar"><figcaption>Long-term effects</figcaption></figure>
+        <figure><img src="shot-menu.jpg" alt="Menu with Child mode, appearance and My body"><figcaption>Child mode &amp; more</figcaption></figure>
+        <figure><img src="shot-dark.jpg" alt="Home screen in dark mode"><figcaption>Dark mode</figcaption></figure>
       </div>
       <button class="arrow prev" aria-label="Previous screenshot">‹</button>
       <button class="arrow next" aria-label="Next screenshot">›</button>
@@ -165,31 +216,60 @@
     <div class="dots" id="dots"></div>
   </section>
 
-  <section class="split" aria-labelledby="share-title">
-    <div>
-      <h2 id="share-title">Share what you found</h2>
-      <p>Tap share on any result to send a picture of the plate, with a short note and a lighter swap, to family on WhatsApp.</p>
-      <div class="card">
-        <h3 style="margin:0 0 6px;font-size:22px">How to install</h3>
-        <ol>
-          <li>On your Android phone, tap <b>Download for Android</b>.</li>
-          <li>Open <b>NutriScan.apk</b> from your downloads. If Android asks, allow your browser to install unknown apps.</li>
-          <li>Tap <b>Install</b>, open NutriScan and allow the camera.</li>
-        </ol>
+  <section aria-labelledby="why">
+    <h2 id="why">Why it matters</h2>
+    <div class="why">
+      <div class="why-photo" role="img" aria-label="Samosas with green chilli"><p>Sugar, salt and palm oil hide in everyday snacks.</p></div>
+      <div class="stats">
+        <div class="stat"><span class="num">101 M</span><span>Indians live with diabetes</span></div>
+        <div class="stat"><span class="num">315 M</span><span>have high blood pressure</span></div>
+        <div class="stat"><span class="num">254 M</span><span>are living with obesity</span></div>
       </div>
-      <p class="note">Food photo grades are estimates from a typical recipe. Label and food photos need an internet connection; barcodes only need it for the lookup.</p>
     </div>
-    <div class="share"><img src="share-card.png" alt="A shared NutriScan card for Quaker Oats: grade A with the nutrient bowls around the plate"></div>
+    <p class="src">Source: ICMR-INDIAB national study, The Lancet Diabetes &amp; Endocrinology, 2023 (adults 20+).</p>
   </section>
 
-  <section aria-labelledby="privacy">
-    <h2 id="privacy">Privacy</h2>
-    <p>No account, no ads, no tracking. Your scan history stays on your phone. Photos you scan are sent only to read the food, and aren’t stored by NutriScan.
-      <a href="privacy-policy.html">Privacy policy</a>. Contact: <a href="mailto:reply2jhani@gmail.com">reply2jhani@gmail.com</a></p>
+  <section aria-labelledby="follow">
+    <h2 id="follow">What we follow</h2>
+    <p class="sub">Every rule in the app comes from a published source.</p>
+    <div class="follow">
+      <div><b>Nutri-Score</b><p>The 2023 A–E algorithm used across Europe.</p></div>
+      <div><b>ICMR-NIN</b><p>Dietary Guidelines for Indians, 2024: salt, sugar and fat.</p></div>
+      <div><b>WHO</b><p>Sugar limits, and feeding rules for babies and young children.</p></div>
+      <div><b>FSSAI</b><p>Indian labels and the 2026 high sugar / salt limits for kids’ food.</p></div>
+    </div>
   </section>
+
+  <section class="split" id="download" aria-labelledby="install">
+    <div class="card">
+      <h3 id="install">How to install</h3>
+      <ol>
+        <li>On your Android phone, tap <b>Download for Android</b> above.</li>
+        <li>Open <b>ThaliScore.apk</b> from your downloads. If Android asks, allow your browser to install unknown apps.</li>
+        <li>Tap <b>Install</b>, open ThaliScore and allow the camera.</li>
+      </ol>
+      <p class="note">Had NutriScan? ThaliScore installs over it and keeps your scans.</p>
+    </div>
+    <div class="card">
+      <h3>Privacy</h3>
+      <p style="margin:0">No account, no ads, no tracking. Your scans and My body details are saved only on your phone; if My body is on, just a summary (age, BMI, conditions, goal) goes with each request so the advice fits you. Photos are sent only to read them, and aren’t stored. <a href="privacy-policy.html">Privacy policy</a> · <a href="mailto:reply2jhani@gmail.com">reply2jhani@gmail.com</a></p>
+      <p class="note">A helping hand, not medical advice. Food photo scores are estimates from a typical recipe. Your body, your call.</p>
+    </div>
+  </section>
+
+  <div class="support">
+    <div class="avo" aria-hidden="true">🥑</div>
+    <div>
+      <h2>Buy me an avocado</h2>
+      <p>ThaliScore is free. If it helped you eat a little better, treat its maker to something healthy. Any amount, by UPI.</p>
+    </div>
+    <a class="upi" id="upi" href="upi://pay?pa=7207370975@ybl&amp;pn=Jhani&amp;cu=INR&amp;tn=An%20avocado%20for%20ThaliScore">
+      <span>7207370975@ybl</span><small id="upi-hint">Pay with UPI</small>
+    </a>
+  </div>
 </main>
 
-<footer>Built with <span class="heart">♥</span> by <strong>Jhani</strong></footer>
+<footer>Made with <span class="heart">❤</span> by <strong>Jhani</strong><br><small>Food photos from Unsplash.</small></footer>
 
 <script>
   (function () {
@@ -217,6 +297,18 @@
     row.addEventListener('scroll', function () { window.requestAnimationFrame(update); });
     window.addEventListener('resize', update);
     update();
+
+    // UPI links only open on phones; on a computer, copy the UPI ID instead.
+    var upi = document.getElementById('upi');
+    if (!/Android|iPhone|iPad/i.test(navigator.userAgent)) {
+      document.getElementById('upi-hint').textContent = 'Copy UPI ID';
+      upi.addEventListener('click', function (e) {
+        e.preventDefault();
+        navigator.clipboard && navigator.clipboard.writeText('7207370975@ybl').then(function () {
+          document.getElementById('upi-hint').textContent = 'Copied ✓';
+        });
+      });
+    }
   })();
 </script>
 </body>
