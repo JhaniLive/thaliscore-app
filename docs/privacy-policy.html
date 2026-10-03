@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NutriScan privacy policy</title>
+<link rel="icon" href="icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Mukta:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root { --steel: #E9ECEF; --surface: #FFFFFF; --ink: #1C2140; --muted: #5E6680; --indigo: #27306B; }
+  body { margin: 0; background: var(--steel); color: var(--ink); font: 18px/1.65 Mukta, system-ui, sans-serif; }
+  main { max-width: 720px; margin: 0 auto; padding: 40px 20px 64px; }
+  h1, h2 { font-family: "Baloo 2", system-ui, sans-serif; line-height: 1.15; }
+  h1 { font-size: 40px; margin: 24px 0 4px; }
+  h2 { font-size: 24px; margin: 32px 0 6px; }
+  .updated { color: var(--muted); margin: 0 0 24px; }
+  a { color: var(--indigo); }
+  .back { font-weight: 700; text-decoration: none; }
+  ul { padding-left: 22px; }
+</style>
+</head>
+<body>
+<main>
+  <a class="back" href="./">‹ NutriScan</a>
+  <h1>Privacy policy</h1>
+  <p class="updated">Last updated 3 October 2026</p>
+
+  <p>NutriScan grades food from A to E. It has no accounts, no ads and no analytics or tracking. This page explains exactly what leaves your phone and why.</p>
+
+  <h2>What stays on your phone</h2>
+  <p>Your scan history, including small thumbnails of photos you scanned, is stored only on your device. Clearing history in the app, or uninstalling it, deletes it.</p>
+
+  <h2>Barcode scans</h2>
+  <p>When you scan a barcode, the barcode number is sent to <a href="https://world.openfoodfacts.org">Open Food Facts</a>, an open food database, to look up the product. No photo is sent. Open Food Facts’ own privacy policy applies to that request.</p>
+
+  <h2>Label and food photos</h2>
+  <p>When you scan a nutrition label or a plate of food, the photo is sent to the NutriScan server, which passes it to an AI model to read the label or recognise the dish:</p>
+  <ul>
+    <li>The server runs on Cloudflare Workers and does not store your photos.</li>
+    <li>The photo is processed by an AI model (Anthropic’s Claude) through OpenRouter. Their privacy policies apply to that processing.</li>
+    <li>Only the photo and the resulting nutrient values are sent. Nothing that identifies you is attached.</li>
+  </ul>
+
+  <h2>Permissions</h2>
+  <ul>
+    <li><b>Camera</b>: to scan barcodes, labels and food.</li>
+    <li><b>Photos</b>: only when you choose to pick an image from your gallery.</li>
+  </ul>
+
+  <h2>Children</h2>
+  <p>NutriScan doesn’t knowingly collect any personal information from anyone, including children.</p>
+
+  <h2>Not medical advice</h2>
+  <p>Grades are general guidance based on the Nutri-Score method. Grades for food photos are estimates. For dietary or medical needs, talk to a doctor or dietitian.</p>
+
+  <h2>Contact</h2>
+  <p>Questions about this policy: <a href="mailto:reply2jhani@gmail.com">reply2jhani@gmail.com</a></p>
+</main>
+</body>
+</html>

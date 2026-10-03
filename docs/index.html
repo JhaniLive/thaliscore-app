@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NutriScan: grade your food from A to E</title>
+<meta name="description" content="Scan a barcode, a nutrition label or your plate. NutriScan grades Indian packaged food and dishes from A to E and tells you how often to eat them.">
+<meta property="og:title" content="NutriScan: grade your food from A to E">
+<meta property="og:description" content="Scan a barcode, a nutrition label or your plate and get a clear A to E grade.">
+<meta property="og:image" content="https://jhanilive.github.io/nutriscan-app/share-card.png">
+<link rel="icon" href="icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Mukta:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --steel: #E9ECEF; --surface: #FFFFFF; --rim: #D3D8DE; --ink: #1C2140; --muted: #5E6680;
+    --indigo: #27306B; --haldi: #F2B705;
+    --a: #1E8F4E; --b: #78B13A; --c: #F2B705; --d: #EC7A1C; --e: #D9411E;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--steel); color: var(--ink); font: 18px/1.6 Mukta, system-ui, sans-serif; }
+  h1, h2, h3, .btn, .plate b { font-family: "Baloo 2", system-ui, sans-serif; }
+  a { color: var(--indigo); }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 20px; }
+
+  /* Hero: words on the left, the app on the right */
+  .hero { padding: 48px 0 24px; }
+  .hero .wrap { display: grid; grid-template-columns: 1.1fr .9fr; gap: 40px; align-items: center; }
+  .brand { display: flex; align-items: center; gap: 12px; font: 800 24px "Baloo 2", sans-serif; color: var(--indigo); }
+  .brand img { width: 44px; height: 44px; border-radius: 12px; }
+  h1 { font-size: clamp(44px, 7vw, 72px); line-height: 1; margin: 28px 0 16px; font-weight: 800; letter-spacing: -.5px; }
+  .lede { font-size: 20px; color: var(--muted); max-width: 30em; margin: 0 0 28px; }
+  .btn { display: inline-flex; align-items: center; gap: 10px; background: var(--indigo); color: #fff; text-decoration: none;
+         font-size: 20px; font-weight: 700; padding: 14px 28px; border-radius: 18px; }
+  .btn:hover { background: #1E2558; }
+  .btn:focus-visible, .arrow:focus-visible, .dots button:focus-visible { outline: 3px solid var(--haldi); outline-offset: 3px; }
+  .btn svg { width: 22px; height: 22px; }
+  .meta { color: var(--muted); font-size: 15px; margin-top: 12px; }
+  .phone { justify-self: center; width: min(320px, 80vw); border-radius: 40px; background: var(--ink); padding: 10px;
+           box-shadow: 0 30px 60px -20px rgba(28,33,64,.45); }
+  .phone img { display: block; width: 100%; border-radius: 31px; }
+
+  /* The grade scale, served as five small thalis */
+  .scale { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin: 8px 0 0; padding: 0; list-style: none; }
+  .plate { text-align: center; }
+  .plate span { display: grid; place-items: center; width: 84px; height: 84px; margin: 0 auto 8px; border-radius: 50%;
+                background: var(--surface); box-shadow: 0 0 0 8px var(--rim); }
+  .plate b { font-size: 44px; line-height: 1; padding-top: 6px; }
+  .plate p { margin: 0; font-size: 16px; color: var(--muted); }
+
+  section { padding: 48px 0 8px; }
+  h2 { font-size: 34px; line-height: 1.15; margin: 0 0 18px; font-weight: 800; }
+  .ways { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .way { background: var(--surface); border-radius: 24px; padding: 22px; }
+  .way h3 { margin: 10px 0 4px; font-size: 22px; line-height: 1.2; }
+  .way p { margin: 0; color: var(--muted); }
+  .way svg { width: 30px; height: 30px; color: var(--indigo); }
+
+  /* Screenshots: one swipeable row with arrows and dots */
+  .carousel { position: relative; }
+  .shots { display: flex; gap: 18px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; padding: 4px 2px 10px; scrollbar-width: none; }
+  .shots::-webkit-scrollbar { display: none; }
+  .shots figure { flex: 0 0 auto; width: calc((100% - 54px) / 4); margin: 0; scroll-snap-align: start; }
+  .shots img { width: 100%; border-radius: 22px; display: block; box-shadow: 0 12px 30px -16px rgba(28,33,64,.5); }
+  .shots figcaption { font-size: 15px; color: var(--muted); margin-top: 8px; text-align: center; }
+  .arrow { position: absolute; top: 42%; transform: translateY(-50%); width: 46px; height: 46px; border-radius: 50%; border: 0;
+           background: var(--indigo); color: #fff; font-size: 24px; cursor: pointer; display: grid; place-items: center; }
+  .arrow:disabled { opacity: 0; pointer-events: none; }
+  .arrow.prev { left: -18px; } .arrow.next { right: -18px; }
+  .dots { display: flex; justify-content: center; gap: 8px; margin-top: 12px; }
+  .dots button { width: 8px; height: 8px; padding: 0; border: 0; border-radius: 4px; background: var(--rim); cursor: pointer; transition: width .2s; }
+  .dots button.on { width: 24px; background: var(--indigo); }
+
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; }
+  .card { background: var(--surface); border-radius: 24px; padding: 22px 26px; }
+  ol { padding-left: 22px; margin: 0; } li { margin: 8px 0; }
+  .share img { width: 100%; max-width: 360px; border-radius: 20px; display: block; box-shadow: 0 16px 40px -18px rgba(28,33,64,.5); }
+  .note { border-left: 4px solid var(--haldi); background: var(--surface); border-radius: 10px; padding: 14px 18px; color: var(--muted); margin-top: 18px; }
+  footer { text-align: center; color: var(--muted); font-size: 15px; padding: 56px 20px 40px; }
+  footer strong { color: var(--ink); } .heart { color: var(--e); }
+
+  @media (max-width: 860px) {
+    .hero .wrap, .split { grid-template-columns: 1fr; }
+    .phone { order: -1; width: min(260px, 70vw); }
+    .hero { text-align: center; } .brand { justify-content: center; } .lede { margin-left: auto; margin-right: auto; }
+    .ways { grid-template-columns: 1fr; }
+    .shots figure { width: 70%; scroll-snap-align: center; }
+    .arrow { display: none; }
+  }
+  @media (max-width: 520px) {
+    .scale { gap: 6px; }
+    .plate span { width: 52px; height: 52px; box-shadow: 0 0 0 5px var(--rim); }
+    .plate b { font-size: 28px; }
+    .plate p { font-size: 13px; line-height: 1.3; }
+  }
+  @media (prefers-reduced-motion: reduce) { html, .shots { scroll-behavior: auto; } .dots button { transition: none; } }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <div class="brand"><img src="icon.png" alt="">NutriScan</div>
+      <h1>Know what<br>you eat.</h1>
+      <p class="lede">Point your camera at a packet, its nutrition label or your plate. NutriScan grades it from A to E and tells you how often it’s fine to eat.</p>
+      <a class="btn" href="https://github.com/JhaniLive/nutriscan-app/releases/latest/download/NutriScan.apk">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0-5-5m5 5 5-5M5 21h14"/></svg>
+        Download for Android
+      </a>
+      <p class="meta">Free, no ads, no account. Android 8 or newer. Version 1.0.0. <a href="https://github.com/JhaniLive/nutriscan-app/releases">All releases</a></p>
+    </div>
+    <div class="phone"><img src="shot-grade-a.png" alt="NutriScan result for Quaker Oats: grade A, everyday food, with energy, sugar, saturated fat, salt, protein and fibre around the plate"></div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section aria-labelledby="grades">
+    <h2 id="grades">One letter, served on a plate</h2>
+    <ul class="scale">
+      <li class="plate"><span><b style="color:var(--a)">A</b></span><p>Everyday food</p></li>
+      <li class="plate"><span><b style="color:var(--b)">B</b></span><p>Good most days</p></li>
+      <li class="plate"><span><b style="color:var(--c)">C</b></span><p>Fine in moderation</p></li>
+      <li class="plate"><span><b style="color:var(--d)">D</b></span><p>Now and then</p></li>
+      <li class="plate"><span><b style="color:var(--e)">E</b></span><p>Rarely</p></li>
+    </ul>
+    <p class="note">Grades follow the Nutri-Score method: sugar, saturated fat, salt and calories count against a food; fibre, protein, fruit and vegetables count for it. Around the plate, six bowls show each nutrient in green, amber or red.</p>
+  </section>
+
+  <section aria-labelledby="ways">
+    <h2 id="ways">Three ways to scan</h2>
+    <div class="ways">
+      <div class="way">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2M7 8v8M10 8v8M13 8v8M17 8v8"/></svg>
+        <h3>Barcode</h3>
+        <p>Packaged food in a second, from the free Open Food Facts database.</p>
+      </div>
+      <div class="way">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg>
+        <h3>Nutrition label</h3>
+        <p>No barcode, or the product isn’t listed? Snap the table on the pack and AI reads it.</p>
+      </div>
+      <div class="way">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/></svg>
+        <h3>Your plate</h3>
+        <p>Vada pav, dosa, biryani or dal makhani: photograph it for an estimated grade.</p>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="shots-title">
+    <h2 id="shots-title">A look inside</h2>
+    <div class="carousel">
+      <div class="shots" id="shots">
+        <figure><img src="shot-welcome.png" alt="Welcome screen with the five grades and the three ways to scan"><figcaption>Start in seconds</figcaption></figure>
+        <figure><img src="shot-grade-a.png" alt="Quaker Oats graded A"><figcaption>Quaker Oats: A</figcaption></figure>
+        <figure><img src="shot-grade-e-dark.png" alt="Parle-G Gold graded E, in dark mode"><figcaption>Parle-G Gold: E, in dark mode</figcaption></figure>
+        <figure><img src="shot-history.png" alt="Scan history grouped by day with a grade summary"><figcaption>Every scan, saved on your phone</figcaption></figure>
+      </div>
+      <button class="arrow prev" aria-label="Previous screenshot">‹</button>
+      <button class="arrow next" aria-label="Next screenshot">›</button>
+    </div>
+    <div class="dots" id="dots"></div>
+  </section>
+
+  <section class="split" aria-labelledby="share-title">
+    <div>
+      <h2 id="share-title">Share what you found</h2>
+      <p>Tap share on any result to send a picture of the plate, with a short note and a lighter swap, to family on WhatsApp.</p>
+      <div class="card">
+        <h3 style="margin:0 0 6px;font-size:22px">How to install</h3>
+        <ol>
+          <li>On your Android phone, tap <b>Download for Android</b>.</li>
+          <li>Open <b>NutriScan.apk</b> from your downloads. If Android asks, allow your browser to install unknown apps.</li>
+          <li>Tap <b>Install</b>, open NutriScan and allow the camera.</li>
+        </ol>
+      </div>
+      <p class="note">Food photo grades are estimates from a typical recipe. Label and food photos need an internet connection; barcodes only need it for the lookup.</p>
+    </div>
+    <div class="share"><img src="share-card.png" alt="A shared NutriScan card for Quaker Oats: grade A with the nutrient bowls around the plate"></div>
+  </section>
+
+  <section aria-labelledby="privacy">
+    <h2 id="privacy">Privacy</h2>
+    <p>No account, no ads, no tracking. Your scan history stays on your phone. Photos you scan are sent only to read the food, and aren’t stored by NutriScan.
+      <a href="privacy-policy.html">Privacy policy</a>. Contact: <a href="mailto:reply2jhani@gmail.com">reply2jhani@gmail.com</a></p>
+  </section>
+</main>
+
+<footer>Built with <span class="heart">♥</span> by <strong>Jhani</strong></footer>
+
+<script>
+  (function () {
+    var row = document.getElementById('shots');
+    var shots = row.querySelectorAll('figure');
+    var dots = document.getElementById('dots');
+    var prev = document.querySelector('.arrow.prev');
+    var next = document.querySelector('.arrow.next');
+    function step() { return shots[0].getBoundingClientRect().width + 18; }
+    function current() { return Math.round(row.scrollLeft / step()); }
+    shots.forEach(function (_, i) {
+      var b = document.createElement('button');
+      b.setAttribute('aria-label', 'Screenshot ' + (i + 1));
+      b.onclick = function () { row.scrollTo({ left: i * step() }); };
+      dots.appendChild(b);
+    });
+    function update() {
+      var i = current();
+      dots.querySelectorAll('button').forEach(function (b, k) { b.classList.toggle('on', k === i); });
+      prev.disabled = row.scrollLeft < 4;
+      next.disabled = row.scrollLeft + row.clientWidth > row.scrollWidth - 4;
+    }
+    prev.onclick = function () { row.scrollBy({ left: -step() }); };
+    next.onclick = function () { row.scrollBy({ left: step() }); };
+    row.addEventListener('scroll', function () { window.requestAnimationFrame(update); });
+    window.addEventListener('resize', update);
+    update();
+  })();
+</script>
+</body>
+</html>
