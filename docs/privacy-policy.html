@@ -44,6 +44,7 @@
   <p>When you scan a nutrition label or a plate of food, the photo (and, for food, any description you type) is sent to the ThaliScore server, which passes it to an AI model to read the label or recognise the dish. To write the advice on each result, the server also sends the food’s name, grade, nutrients and ingredient flags.</p>
   <ul>
     <li>The server runs on Cloudflare Workers and does not store your photos or requests.</li>
+    <li>Each request carries a random install ID made by the app, so the server can count today’s free AI scans per phone. It isn’t linked to you, your phone number or your device; the count is deleted after a day and a half. Reinstalling the app makes a new ID.</li>
     <li>The AI model is Anthropic’s Claude, reached through OpenRouter. Their privacy policies apply to that processing.</li>
     <li>If <b>My body</b> is switched on, the advice request also includes your age, sex, BMI, ticked health conditions and goal, so the advice can be written for you. Your height and weight themselves are not sent, only the BMI worked out from them. Nothing that identifies you, such as your name, phone number or location, is ever sent.</li>
     <li>Your <b>allergies</b> are never sent. They are checked against the ingredients on your phone.</li>
